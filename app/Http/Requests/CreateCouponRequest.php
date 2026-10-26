@@ -28,6 +28,8 @@ final class CreateCouponRequest extends FormRequest
             'minSubtotal' => ['nullable', 'integer', 'min:0', 'max:2000000000'],
             'startsAt' => ['nullable', 'date'],
             'endsAt' => ['nullable', 'date', 'after:startsAt'],
+            'maxRedemptions' => ['nullable', 'integer', 'min:1', 'max:2000000000'],
+            'maxRedemptionsPerCustomer' => ['nullable', 'integer', 'min:1', 'max:2000000000'],
         ];
     }
 
@@ -41,6 +43,8 @@ final class CreateCouponRequest extends FormRequest
             minSubtotal: $this->integer('minSubtotal'),
             startsAt: $this->filled('startsAt') ? CarbonImmutable::parse($this->string('startsAt')->toString())->utc() : null,
             endsAt: $this->filled('endsAt') ? CarbonImmutable::parse($this->string('endsAt')->toString())->utc() : null,
+            maxRedemptions: $this->filled('maxRedemptions') ? $this->integer('maxRedemptions') : null,
+            maxRedemptionsPerCustomer: $this->filled('maxRedemptionsPerCustomer') ? $this->integer('maxRedemptionsPerCustomer') : null,
         );
     }
 

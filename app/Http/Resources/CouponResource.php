@@ -30,7 +30,10 @@ final class CouponResource extends JsonResource
             'minSubtotal' => $this->min_subtotal,
             'startsAt' => $this->starts_at?->toIso8601ZuluString(),
             'endsAt' => $this->ends_at?->toIso8601ZuluString(),
+            'maxRedemptions' => $this->max_redemptions,
+            'maxRedemptionsPerCustomer' => $this->max_redemptions_per_customer,
             'active' => $this->active,
+            'redemptionCount' => $this->redemption_count,
             'createdAt' => $this->created_at->toIso8601ZuluString(),
         ];
     }

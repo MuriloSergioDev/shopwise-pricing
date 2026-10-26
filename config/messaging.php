@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Messaging\Handlers\CheckoutCompletedHandler;
 use App\Messaging\Handlers\ProductPublishedHandler;
 use App\Messaging\Handlers\VariantChangedHandler;
 
@@ -14,6 +15,7 @@ return [
     'handlers' => [
         'catalog.variant-changed' => VariantChangedHandler::class,
         'catalog.product-published' => ProductPublishedHandler::class,
+        'checkout.completed' => CheckoutCompletedHandler::class,
     ],
 
     'max_attempts' => 3,

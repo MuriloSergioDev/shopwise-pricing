@@ -17,4 +17,10 @@ enum CouponRejection: string
     case Expired = 'expired';
 
     case MinSubtotalNotMet = 'min_subtotal_not_met';
+
+    /** The customer reached the coupon's per-customer limit. Only checked when the quote has a customer. */
+    case AlreadyRedeemed = 'already_redeemed';
+
+    /** The coupon reached its total limit. */
+    case Exhausted = 'exhausted';
 }

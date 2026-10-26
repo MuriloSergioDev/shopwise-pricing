@@ -5,6 +5,9 @@ consumers:
   # Feeds the `skus` read model; prices can only be set for SKUs catalog announced.
   - name: catalog-skus
     topics: [catalog.variant-changed, catalog.product-published]
+  # Records coupon redemptions (ADR-0004). The topic belongs to checkout.
+  - name: coupon-redemptions
+    topics: [checkout.completed]
 scheduler:
   # Runs the outbox relay.
   enabled: true

@@ -41,7 +41,7 @@ final readonly class PriceQuote
         $check = null;
         if ($request->couponCode !== null) {
             $coupon = Coupon::query()->code($request->couponCode)->first();
-            $rejection = $coupon instanceof Coupon ? $coupon->rejectionFor($subtotal, now()) : CouponRejection::Unknown;
+            $rejection = $coupon instanceof Coupon ? $coupon->rejectionFor($subtotal, now(), $request->customerId) : CouponRejection::Unknown;
             if ($coupon instanceof Coupon && ! $rejection instanceof CouponRejection) {
                 $discount = $coupon->discountFor($subtotal);
             }

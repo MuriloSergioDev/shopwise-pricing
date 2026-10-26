@@ -17,5 +17,7 @@ final readonly class NewCouponData
         public int $minSubtotal = 0,
         public ?CarbonImmutable $startsAt = null,
         public ?CarbonImmutable $endsAt = null,
+        public ?int $maxRedemptions = null,
+        public ?int $maxRedemptionsPerCustomer = null,
     ) {}
 }

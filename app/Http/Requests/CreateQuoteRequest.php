@@ -7,6 +7,7 @@ namespace App\Http\Requests;
 use App\Data\QuoteLineData;
 use App\Data\QuoteRequestData;
 use Illuminate\Foundation\Http\FormRequest;
+use Shopwise\Kit\Auth\JwtUser;
 
 final class CreateQuoteRequest extends FormRequest
 {
@@ -32,6 +33,7 @@ final class CreateQuoteRequest extends FormRequest
         return new QuoteRequestData(
             lines: array_map(fn (array $line): QuoteLineData => new QuoteLineData($line['sku'], (int) $line['quantity']), $lines),
             couponCode: $this->filled('couponCode') ? $this->string('couponCode')->trim()->toString() : null,
+            customerId: $this->user() instanceof JwtUser ? $this->user()->id : null,
         );
     }
 }

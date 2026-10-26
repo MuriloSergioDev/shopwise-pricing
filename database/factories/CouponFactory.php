@@ -37,6 +37,11 @@ final class CouponFactory extends Factory
         return $this->state(['type' => CouponType::Fixed, 'value' => $amount]);
     }
 
+    public function limited(?int $total, ?int $perCustomer = null): self
+    {
+        return $this->state(['max_redemptions' => $total, 'max_redemptions_per_customer' => $perCustomer]);
+    }
+
     public function inactive(): self
     {
         return $this->state(['active' => false]);

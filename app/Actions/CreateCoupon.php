@@ -19,6 +19,8 @@ final readonly class CreateCoupon
             'min_subtotal' => $data->minSubtotal,
             'starts_at' => $data->startsAt,
             'ends_at' => $data->endsAt,
+            'max_redemptions' => $data->maxRedemptions,
+            'max_redemptions_per_customer' => $data->maxRedemptionsPerCustomer,
             'active' => true,
         ]);
     }

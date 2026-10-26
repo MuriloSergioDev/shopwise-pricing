@@ -81,3 +81,20 @@ it('needs an admin token for every coupon endpoint', function (): void {
     $this->postJson('/api/admin/coupons', ['code' => 'X', 'type' => 'fixed', 'value' => 1], bearer(['customer']))->assertForbidden();
     $this->deleteJson('/api/admin/coupons/X', [], bearer(['customer']))->assertForbidden();
 });
+
+it('creates a coupon with redemption limits and reports its redemption count', function (): void {
+    $this->postJson('/api/admin/coupons', ['code' => 'FIRST100', 'type' => 'fixed', 'value' => 500, 'maxRedemptions' => 100, 'maxRedemptionsPerCustomer' => 1], bearer())
+        ->assertCreated()
+        ->assertJsonPath('data.maxRedemptions', 100)
+        ->assertJsonPath('data.maxRedemptionsPerCustomer', 1)
+        ->assertJsonPath('data.redemptionCount', 0);
+
+    $this->postJson('/api/admin/coupons', ['code' => 'OPEN', 'type' => 'fixed', 'value' => 500], bearer())
+        ->assertCreated()
+        ->assertJsonPath('data.maxRedemptions', null)
+        ->assertJsonPath('data.maxRedemptionsPerCustomer', null);
+
+    $this->postJson('/api/admin/coupons', ['code' => 'BAD', 'type' => 'fixed', 'value' => 500, 'maxRedemptions' => 0, 'maxRedemptionsPerCustomer' => 'x'], bearer())
+        ->assertUnprocessable()
+        ->assertJsonValidationErrors(['maxRedemptions', 'maxRedemptionsPerCustomer']);
+});
