@@ -1,0 +1,17 @@
+# Values for shopwise-platform/charts/laravel-service. `name` and `image` are set by the Tiltfile.
+http:
+  workers: 1
+consumers:
+  # Feeds the `skus` read model; prices can only be set for SKUs catalog announced.
+  - name: catalog-skus
+    topics: [catalog.variant-changed, catalog.product-published]
+scheduler:
+  # Runs the outbox relay.
+  enabled: true
+# Topics this service owns (it is the only producer).
+topics:
+  - name: pricing.price-changed
+    partitions: 3
+env:
+  LOG_CHANNEL: stderr
+  OCTANE_SERVER: frankenphp
